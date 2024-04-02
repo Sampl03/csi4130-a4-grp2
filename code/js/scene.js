@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import * as ASSETS from "/code/js/assets.js"
 
-export function populateScene(scene) {
+export function populateScene(scene, updatables) {
     scene.renderer.setClearColor(ASSETS.SkyColors.day);
     
     scene.camera.position.setZ(25);
@@ -9,9 +9,6 @@ export function populateScene(scene) {
 
     const axes = new THREE.AxesHelper(5);
     scene.add(axes);
-
-    // Updatables -> objects with a tick(deltaTime) function that needs to be called every frame
-    let updatables = [];
 
     // TODO: Add lighting
 
@@ -24,6 +21,4 @@ export function populateScene(scene) {
     // TODO: Add mini-village
 
     // TODO: Add train/mini-santa/else?
-
-    return updatables;
 }

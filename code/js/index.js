@@ -23,7 +23,8 @@ function init() {
     scene = new THREE.Scene();
     scene.renderer = renderer;
     scene.camera = camera;
-    let updatables = populateScene(scene);
+    let updatables = [];
+    populateScene(scene, updatables);
 
     /* Resize the renderer and camera to fit the viewport */
     resizeRender();
