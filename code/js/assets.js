@@ -11,74 +11,50 @@ export const SkyColors = {
 
 /* Trees */
 export function fetchTreeMeshes(callback) {
-    let treeMeshes = []
-    let treeReady = new Array(4).fill(false);
-
     // Load the first tree
     gltfLoader.load('/code/assets/low_poly_tree_with_snow_on_top.glb', (gltf) => {
         let mesh = gltf.scene.getObjectByName("Cube_Material_0");
-        treeMeshes.push(convertMeshToInstancedMesh(mesh, INSTANCEPOS.trees[0]));
-        treeReady[0] = true;
-        loadedModel();
+        callback([convertMeshToInstancedMesh(mesh, INSTANCEPOS.trees[0])])
     });
 
     // Second tree
     gltfLoader.load('/code/assets/low-poly_snow_tree.glb', (gltf) => {
+        let trees = [];
         for (let mesh of gltf.scene.getObjectsByProperty("type", "Mesh")) {
-            treeMeshes.push(convertMeshToInstancedMesh(mesh, INSTANCEPOS.trees[1]));
+            trees.push(convertMeshToInstancedMesh(mesh, INSTANCEPOS.trees[1]));
         };
-        treeReady[1] = true;
-        loadedModel();
+        callback(trees);
     });
 
     // Third and fourth trees (snowy pine + dead tree)
     gltfLoader.load('/code/assets/lowpoly_forest.glb', (gltf) => {
         let meshes = gltf.scene.getObjectsByProperty("type", "Mesh");
+        let trees = []
 
         // pine
-        treeMeshes.push(convertMeshToInstancedMesh(meshes[1], INSTANCEPOS.trees[2]));
-        treeMeshes.push(convertMeshToInstancedMesh(meshes[2], INSTANCEPOS.trees[2]));
-        treeMeshes.push(convertMeshToInstancedMesh(meshes[47], INSTANCEPOS.trees[2]));
-        treeReady[2] = true;
+        trees.push(convertMeshToInstancedMesh(meshes[1], INSTANCEPOS.trees[2]));
+        trees.push(convertMeshToInstancedMesh(meshes[2], INSTANCEPOS.trees[2]));
+        trees.push(convertMeshToInstancedMesh(meshes[47], INSTANCEPOS.trees[2]));
 
         // dead tree
-        treeMeshes.push(convertMeshToInstancedMesh(meshes[43], INSTANCEPOS.trees[3]));
-        treeMeshes.push(convertMeshToInstancedMesh(meshes[44], INSTANCEPOS.trees[3]));
-        treeReady[3] = true;
+        trees.push(convertMeshToInstancedMesh(meshes[43], INSTANCEPOS.trees[3]));
+        trees.push(convertMeshToInstancedMesh(meshes[44], INSTANCEPOS.trees[3]));
 
-        loadedModel();
+        callback(trees);
     });
-
-    // Regrouping function
-    function loadedModel() {
-        if (!treeReady.includes(false))
-            callback(treeMeshes);
-    }
 }
 
 /* Houses */
 export function fetchHouseMeshes(callback) {
-    let houseMeshes = [];
-    let houseReady = new Array(4).fill(false);
-
     // Load the mini houses
     gltfLoader.load('/code/assets/Snowy Houses.glb', (gltf) => {
-        const groups = gltf.scene.children;
+        const houseGroups = gltf.scene.children;
+        let houses = []
         for (let i = 0; i < 4; i++) // Only render 4 houses instead of 8
-        {
-            for (const mesh of groups[i].children) {
-                houseMeshes.push(convertMeshToInstancedMesh(mesh, INSTANCEPOS.houses[i]));
-            }
-            houseReady[i] = true;
-        }
-        loadedModel();
+            for (const mesh of houseGroups[i].children)
+                houses.push(convertMeshToInstancedMesh(mesh, INSTANCEPOS.houses[i]));
+        callback(houses);
     });
-
-    // Regrouping function
-    function loadedModel() {
-        if (!houseReady.includes(false))
-            callback(houseMeshes);
-    }
 }
 
 /* Utility */
