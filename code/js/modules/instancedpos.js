@@ -36,6 +36,39 @@ export const trees = function() {
     return trees;
 }();
 
+/* House Positions */
+export const houses = function() {
+    let houses = [];
+    let basis;
+
+    // Snowy Houses.glb
+    basis = convertConfigToMatrix4([-10, 2.2, -2.5], [0, 92, 0], 8);
+    houses[0] = [
+        convertConfigToMatrix4([15, 0, 20], [0, 0, 0], 1),
+        // etc (add more)
+    ].map((x) => x.multiply(basis));
+    
+    basis.setPosition(-3.5, 2.2, -2.5);
+    houses[1] = [
+        convertConfigToMatrix4([5, 0, 20], [0, 0, 0], 1),
+        // etc (add more)
+    ].map((x) => x.multiply(basis));
+    
+    basis.setPosition(3.1, 2.2, -2.5);
+    houses[2] = [
+        convertConfigToMatrix4([-5, 0, 20], [0, 0, 0], 1),
+        // etc (add more)
+    ].map((x) => x.multiply(basis));
+    
+    basis.setPosition(9.6, 2.32, -2.6)
+    houses[3] = [
+        convertConfigToMatrix4([-15, 0, 20], [0, 0, 0], 1),
+        // etc (add more)
+    ].map((x) => x.multiply(basis));
+
+    return houses;
+}();
+
 /* Utility */
 
 /** Takes arrays [px, py, pz], [pitch, yaw, roll], scale and creates a Matrix4 out of it */

@@ -56,6 +56,31 @@ export function fetchTreeMeshes(callback) {
     }
 }
 
+/* Houses */
+export function fetchHouseMeshes(callback) {
+    let houseMeshes = [];
+    let houseReady = new Array(4).fill(false);
+
+    // Load the mini houses
+    gltfLoader.load('/code/assets/Snowy Houses.glb', (gltf) => {
+        const groups = gltf.scene.children;
+        for (let i = 0; i < 4; i++) // Only render 4 houses instead of 8
+        {
+            for (const mesh of groups[i].children) {
+                houseMeshes.push(convertMeshToInstancedMesh(mesh, INSTANCEPOS.houses[i]));
+            }
+            houseReady[i] = true;
+        }
+        loadedModel();
+    });
+
+    // Regrouping function
+    function loadedModel() {
+        if (!houseReady.includes(false))
+            callback(houseMeshes);
+    }
+}
+
 /* Utility */
 function convertMeshToInstancedMesh(mesh, matrices) {
     let instancedMesh = new THREE.InstancedMesh(mesh.geometry, mesh.material, matrices.length);
