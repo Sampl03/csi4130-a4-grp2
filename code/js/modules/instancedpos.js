@@ -66,6 +66,13 @@ export const houses = function() {
         // etc (add more)
     ].map((x) => x.multiply(basis));
 
+    // snowy_wooden_hut.glb
+    basis = convertConfigToMatrix4([0, 0, 0], [0, 0, 0], 1);
+    houses[4] = [
+        convertConfigToMatrix4([0, 0, 0], [0, 0, 0], 1),
+        // etc (add more)
+    ].map((x) => x.multiply(basis));
+
     return houses;
 }();
 

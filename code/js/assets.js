@@ -55,14 +55,36 @@ export function fetchHouseMeshes(callback) {
                 houses.push(convertMeshToInstancedMesh(mesh, INSTANCEPOS.houses[i]));
         callback(houses);
     });
+
+    // Load the wooden hut
+    gltfLoader.load('/code/assets/snowy_wooden_hut.glb', (gltf) => {
+        const meshes = gltf.scene.getObjectsByProperty("type", "Mesh");
+        let houses = [];
+
+        gltf.scene.updateMatrixWorld(true);
+        for (const mesh of meshes) {
+            mesh.position.setFromMatrixPosition(mesh.matrixWorld);
+            mesh.rotation.setFromRotationMatrix(mesh.matrixWorld);
+            mesh.scale.setFromMatrixScale(mesh.matrixWorld);
+            houses.push(convertMeshToInstancedMesh(mesh, INSTANCEPOS.houses[4]));
+        }
+        callback(houses);
+    })
 }
 
 /* Utility */
 function convertMeshToInstancedMesh(mesh, matrices) {
     let instancedMesh = new THREE.InstancedMesh(mesh.geometry, mesh.material, matrices.length);
-
-    for (let i = 0; i < matrices.length; i++)
-        instancedMesh.setMatrixAt(i, matrices[i]);
+    instancedMesh.position.copy(mesh.position);
+    instancedMesh.rotation.copy(mesh.rotation);
+    instancedMesh.scale.copy(mesh.scale)
+    
+    let matrix = new THREE.Matrix4();
+    for (let i = 0; i < matrices.length; i++) {
+        instancedMesh.getMatrixAt(i, matrix);
+        matrix.multiply(matrices[i]);
+        instancedMesh.setMatrixAt(i, matrix);
+    }
 
     return instancedMesh;
 }
