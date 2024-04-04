@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Dylan Toh">
+    <meta name="author" content="Samuel Pierre-Louis">
+    <title>CSI4130 - A4 - Group 2</title>
+    <link rel="stylesheet" href="/code/css/index.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "/node_modules/three/build/three.module.js",
+                "three/addons/": "/node_modules/three/examples/jsm/",
+                "dat.gui": "/node_modules/dat.gui/build/dat.gui.module.js",
+                "js/": "/code/js/",
+                "simplexnoise": "/node_modules/simplex-noise/dist/cjs/simplex-noise.js"
+            }
+        }
+    </script>
+    <script src="/node_modules/gl-matrix/gl-matrix-min.js"></script>
+    <script src="/code/lib/webgl-utils.js"></script>
+    <script src="/code/lib/webgl-debug.js"></script>
+</head>
+<body>
+    <div id="render-container"></div>
+    <script type="module" src="/code/js/index.js"></script>
+</body>
+</html>

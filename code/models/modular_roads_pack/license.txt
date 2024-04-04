@@ -1,0 +1,11 @@
+Model Information:
+* title:	Modular Roads Pack
+* source:	https://sketchfab.com/3d-models/modular-roads-pack-99023ee0b2564395b47b40d22f51f7c2
+* author:	Mini Loft Games (https://sketchfab.com/SquadCell)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Modular Roads Pack" (https://sketchfab.com/3d-models/modular-roads-pack-99023ee0b2564395b47b40d22f51f7c2) by Mini Loft Games (https://sketchfab.com/SquadCell) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
