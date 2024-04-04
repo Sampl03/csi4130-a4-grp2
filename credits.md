@@ -3,6 +3,7 @@
 ## Assets
 
 (TODO)
+- [Snow Textures] (https://polyhaven.com/a/snow_02)
 
 ## Code
 
