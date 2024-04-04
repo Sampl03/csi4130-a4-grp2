@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import * as ASSETS from "/code/js/assets.js"
-import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader"
+import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js"
 
 export function populateScene(scene, updatables) {
     scene.renderer.setClearColor(ASSETS.SkyColors.day);
