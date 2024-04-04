@@ -28,11 +28,11 @@ export function populateScene(scene, updatables) {
     }
     const textureLoader = new THREE.TextureLoader();
     const terrainMaterial = new THREE.MeshStandardMaterial({
-        map: textureLoader.load('code/textures/ice_0001_1k_APRx3a/snow.jpg'),
-        normalMap: textureLoader.load('code/textures/ice_0001_1k_APRx3a/ice_0001_normal_opengl_1k.png'),
-        displacementMap: textureLoader.load('code/textures/ice_0001_1k_APRx3a/ice_0001_height_1k.png'),
-        aoMap: textureLoader.load('code/textures/ice_0001_1k_APRx3a/ice_0001_ao_1k.jpg'),
-        roughnessMap: textureLoader.load('code/textures/ice_0001_1k_APRx3a/ice_0001_roughness_1k.jpg'),
+        map: textureLoader.load('code/assets/textures/ice_0001_1k_APRx3a/snow.jpg'),
+        normalMap: textureLoader.load('code/assets/textures/ice_0001_1k_APRx3a/ice_0001_normal_opengl_1k.png'),
+        displacementMap: textureLoader.load('code/assets/textures/ice_0001_1k_APRx3a/ice_0001_height_1k.png'),
+        aoMap: textureLoader.load('code/assets/textures/ice_0001_1k_APRx3a/ice_0001_ao_1k.jpg'),
+        roughnessMap: textureLoader.load('code/assets/textures/ice_0001_1k_APRx3a/ice_0001_roughness_1k.jpg'),
         color: 0xFFFFFF
     }); // Simple white material for snow
     const terrain = new THREE.Mesh(terrainGeometry, terrainMaterial);
