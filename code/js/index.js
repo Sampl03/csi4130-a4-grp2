@@ -2,6 +2,8 @@ import * as THREE from "three";
 import { populateScene } from "/code/js/scene.js";
 import { bindControlsToCamera } from "./modules/camera.js";
 
+const cameraPosInfo = document.getElementById("camera-position");
+
 let container = undefined;
 let renderer = undefined;
 let scene = undefined;
@@ -49,6 +51,12 @@ function init() {
 
 function render(deltaTime) {
     camera.update(deltaTime)
+
+    /* Update debug UI */
+    cameraPosInfo.innerText = `Cam Pos = X: ${camera.position.x.toFixed(2)} Y: ${camera.position.y.toFixed(2)} Z: ${camera.position.z.toFixed(2)}`;
+    const rotation = new THREE.Vector3().setFromEuler(camera.rotation);
+    rotation.multiplyScalar(180 / Math.PI);
+    cameraPosInfo.innerText += `\nCam Rot = X: ${rotation.x.toFixed(2)} Y: ${rotation.y.toFixed(2)} Z: ${rotation.z.toFixed(2)}`
 
     renderer.render(scene, camera);
 }
