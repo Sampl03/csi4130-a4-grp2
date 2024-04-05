@@ -5,7 +5,7 @@ import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js"
 export function populateScene(scene, updatables) {
     scene.renderer.setClearColor(ASSETS.SkyColors.day);
     
-    scene.camera.position.setZ(-10);
+    scene.camera.position.set(0, 40, -80);
     scene.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
     const axes = new THREE.AxesHelper(5);
@@ -18,13 +18,24 @@ export function populateScene(scene, updatables) {
     // TODO: Add lighting
 
     // TODO: Use a cubemap for the skybox
+    const cubeTextureLoader = new THREE.CubeTextureLoader();
+    const cubeMapTexture = cubeTextureLoader.load([
+        'code/assets/skybox_cubemap/skybox_px.jpg', // right
+        'code/assets/skybox_cubemap/skybox_nx.jpg', // left
+        'code/assets/skybox_cubemap/skybox_py.jpg', // top
+        'code/assets/skybox_cubemap/skybox_ny.jpg', // bottom
+        'code/assets/skybox_cubemap/skybox_pz.jpg', // front
+        'code/assets/skybox_cubemap/skybox_nz.jpg', // back
+    ])
+
+    scene.background = cubeMapTexture
 
     // TODO: Add terrain
-    const terrainGeometry = new THREE.PlaneGeometry(300, 300, 60, 60); // Width, height, width segments, height segments
+    const terrainGeometry = new THREE.PlaneGeometry(80, 80, 60, 60); // Width, height, width segments, height segments
     const positions = terrainGeometry.getAttribute('position')
     for (let i = 0; i < positions.count; i++) {
         const z = positions.getZ(i);
-        positions.setZ(i, z * 50); // Increase this multiplier
+        positions.setZ(i, z * 50);
     }
     const textureLoader = new THREE.TextureLoader();
     const terrainMaterial = new THREE.MeshStandardMaterial({
@@ -40,6 +51,9 @@ export function populateScene(scene, updatables) {
     scene.add(terrain);
 
     // TODO: Add Roads
+    let roadGroups = new THREE.Group();
+    ASSETS.fetchRoadsMeshes((roads) => { for (let road of roads) roadGroups.add(road); });
+    scene.add(roadGroups);
 
     // Add instanced trees
     let treeGroup = new THREE.Group();

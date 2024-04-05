@@ -1,5 +1,54 @@
 import * as THREE from "three";
 
+/* Road Positions */
+export const roads = function() {
+    let roads = [];
+    let basis;
+
+    // Straight roads.glb
+    basis = convertConfigToMatrix4([0, 0, 0], [0, 0, 0], 1);
+    roads[0] = [
+        convertConfigToMatrix4([32.7, 0.6, 15], [0, 0, 0], 0.0005),
+        convertConfigToMatrix4([30, 0.6, 15], [0, 0, 0], 0.0005),
+        convertConfigToMatrix4([-1, 0.6, 15], [0, 0, 0], 0.0005),
+        convertConfigToMatrix4([-15, 0.6, 15], [0, 0, 0], 0.0005),
+        convertConfigToMatrix4([-15, 0.6, 23.2], [0, 90, 0], 0.0005),
+        convertConfigToMatrix4([-15, 0.6, 32.7], [0, 90, 0], 0.0005),
+        convertConfigToMatrix4([-15, 0.6, 2], [0, 90, 0], 0.0005),
+        convertConfigToMatrix4([-15, 0.6, 15], [0, 90, 0], 0.0005),
+        convertConfigToMatrix4([-29, 0.6, 15], [0, 0, 0], 0.0005),
+        convertConfigToMatrix4([-32.7, 0.6, 15], [0, 0, 0], 0.0005),
+        convertConfigToMatrix4([21.8, 0.6, 23.2], [0, 90, 0], 0.0005),
+        convertConfigToMatrix4([21.8, 0.6, 32.7], [0, 90, 0], 0.0005),
+        convertConfigToMatrix4([13.6, 0.6, 15], [0, 0, 0], 0.0005),
+        convertConfigToMatrix4([21.8, 0.6, 6.8], [0, 90, 0], 0.0005),
+        convertConfigToMatrix4([8.35, 0.7, -6.1], [0, 0, 0], 0.0005),
+        convertConfigToMatrix4([35.25, 0.7, -6.1], [0, 0, 0], 0.0005),
+        convertConfigToMatrix4([21.8, 0.6, -19], [0, 90, 0], 0.0005),
+        convertConfigToMatrix4([21.8, 0.6, -32.7], [0, 90, 0], 0.0005),
+        convertConfigToMatrix4([-6, 0.6, -6.1], [0, 0, 0], 0.0005),
+        convertConfigToMatrix4([-20, 0.6, -6.1], [0, 0, 0], 0.0005),
+        convertConfigToMatrix4([-32.7, 0.6, -6.1], [0, 0, 0], 0.0005),
+        // etc (add more)
+    ].map((x) => x.multiply(basis));
+
+    roads[1] = [
+        convertConfigToMatrix4([21.8, 0.6, 15], [0, 0, 0], 0.0005),
+        convertConfigToMatrix4([21.8, 0.6, -1.4], [0, 0, 0], 0.0005),
+        convertConfigToMatrix4([21.8, 0.6, -10.8], [0, 0, 0], 0.0005),
+        convertConfigToMatrix4([-15, 0.62, 15], [0, 0, 0], 0.0005),
+        convertConfigToMatrix4([-15, 0.62, -6.1], [0, 0, 0], 0.0005),
+    ].map((x) => x.multiply(basis));
+
+    roads[2] = [
+        convertConfigToMatrix4([16.2, 0.6, -6.1], [0, 90, 0], 0.0005),
+        convertConfigToMatrix4([27.3, 0.6, -6.1], [0, -90, 0], 0.0005),
+        // etc (add more)
+    ].map((x) => x.multiply(basis));
+
+    return roads;
+}();
+
 /* Tree positions */
 export const trees = function() {
     let trees = [];
