@@ -8,41 +8,20 @@ export const roads = function() {
     // Straight roads.glb
     basis = convertConfigToMatrix4([0, 0, 0], [0, 0, 0], 1);
     roads[0] = [
-        convertConfigToMatrix4([32.7, 0.6, 15], [0, 0, 0], 0.0005),
-        convertConfigToMatrix4([30, 0.6, 15], [0, 0, 0], 0.0005),
-        convertConfigToMatrix4([-1, 0.6, 15], [0, 0, 0], 0.0005),
-        convertConfigToMatrix4([-15, 0.6, 15], [0, 0, 0], 0.0005),
-        convertConfigToMatrix4([-15, 0.6, 23.2], [0, 90, 0], 0.0005),
-        convertConfigToMatrix4([-15, 0.6, 32.7], [0, 90, 0], 0.0005),
-        convertConfigToMatrix4([-15, 0.6, 2], [0, 90, 0], 0.0005),
-        convertConfigToMatrix4([-15, 0.6, 15], [0, 90, 0], 0.0005),
-        convertConfigToMatrix4([-29, 0.6, 15], [0, 0, 0], 0.0005),
-        convertConfigToMatrix4([-32.7, 0.6, 15], [0, 0, 0], 0.0005),
-        convertConfigToMatrix4([21.8, 0.6, 23.2], [0, 90, 0], 0.0005),
-        convertConfigToMatrix4([21.8, 0.6, 32.7], [0, 90, 0], 0.0005),
-        convertConfigToMatrix4([13.6, 0.6, 15], [0, 0, 0], 0.0005),
-        convertConfigToMatrix4([21.8, 0.6, 6.8], [0, 90, 0], 0.0005),
-        convertConfigToMatrix4([8.35, 0.7, -6.1], [0, 0, 0], 0.0005),
-        convertConfigToMatrix4([35.25, 0.7, -6.1], [0, 0, 0], 0.0005),
-        convertConfigToMatrix4([21.8, 0.6, -19], [0, 90, 0], 0.0005),
-        convertConfigToMatrix4([21.8, 0.6, -32.7], [0, 90, 0], 0.0005),
-        convertConfigToMatrix4([-6, 0.6, -6.1], [0, 0, 0], 0.0005),
-        convertConfigToMatrix4([-20, 0.6, -6.1], [0, 0, 0], 0.0005),
-        convertConfigToMatrix4([-32.7, 0.6, -6.1], [0, 0, 0], 0.0005),
+        convertConfigToMatrix4([17.3, 0.62, 0], [0, 0, 0], 0.0005),
+        convertConfigToMatrix4([22.7, 0.62, 0], [0, 0, 0], 0.0005),
+        convertConfigToMatrix4([-17.3, 0.62, 0], [0, 0, 0], 0.0005),
+        convertConfigToMatrix4([-22.7, 0.62, 0], [0, 0, 0], 0.0005),
+        convertConfigToMatrix4([0, 0.62, 17.3], [0, 90, 0], 0.0005),
+        convertConfigToMatrix4([0, 0.62, 22.7], [0, 90, 0], 0.0005),
+        convertConfigToMatrix4([0, 0.62, -17.3], [0, 90, 0], 0.0005),
+        convertConfigToMatrix4([0, 0.62, -22.7], [0, 90, 0], 0.0005),
         // etc (add more)
     ].map((x) => x.multiply(basis));
 
     roads[1] = [
-        convertConfigToMatrix4([21.8, 0.6, 15], [0, 0, 0], 0.0005),
-        convertConfigToMatrix4([21.8, 0.6, -1.4], [0, 0, 0], 0.0005),
-        convertConfigToMatrix4([21.8, 0.6, -10.8], [0, 0, 0], 0.0005),
-        convertConfigToMatrix4([-15, 0.62, 15], [0, 0, 0], 0.0005),
-        convertConfigToMatrix4([-15, 0.62, -6.1], [0, 0, 0], 0.0005),
-    ].map((x) => x.multiply(basis));
-
-    roads[2] = [
-        convertConfigToMatrix4([16.2, 0.6, -6.1], [0, 90, 0], 0.0005),
-        convertConfigToMatrix4([27.3, 0.6, -6.1], [0, -90, 0], 0.0005),
+        convertConfigToMatrix4([-9.3, 0.6, 0], [0, 90, 0], 0.0005),
+        convertConfigToMatrix4([9.3, 0.6, 0], [0, -90, 0], 0.0005),
         // etc (add more)
     ].map((x) => x.multiply(basis));
 
@@ -55,30 +34,30 @@ export const trees = function() {
     let basis;
 
     // low_poly_tree_with_snow_on_top.glb
-    basis = convertConfigToMatrix4([0, 0.7, 0], [-90, 0, 0], 0.7);
+    basis = convertConfigToMatrix4([0, 1.2, 0], [-90, 0, 0], 0.7);
     trees[0] = [
-        convertConfigToMatrix4([-15, 0, -20], [0, 0, 0], 1),
+        // convertConfigToMatrix4([-15, 0, -20], [0, 0, 0], 1),
         // etc (add more)
     ].map((x) => x.multiply(basis));
 
     // low-poly_snow_tree.glb
-    basis = convertConfigToMatrix4([0, 0, 0], [-90, 0, 0], 5);
+    basis = convertConfigToMatrix4([0, .5, 0], [-90, 0, 0], 5);
     trees[1] = [
-        convertConfigToMatrix4([-5, 0, -20], [0, 0, 0], 1),
+        // convertConfigToMatrix4([-5, 0, -20], [0, 0, 0], 1),
         // etc (add more)
     ].map((x) => x.multiply(basis));
 
     // lowpoly_forest.glb - snowy pine
-    basis = convertConfigToMatrix4([0, .5, 0], [-90, 0, 0], 0.8);
+    basis = convertConfigToMatrix4([0, 1.2, 0], [-90, 0, 0], 0.8);
     trees[2] = [
-        convertConfigToMatrix4([5, 0, -20], [0, 0, 0], 1),
+        convertConfigToMatrix4([0, 0, 0], [0, 0, 0], 2),
         // etc (add more)
     ].map((x) => x.multiply(basis));
 
     // lowpoly_forest.glb - dead tree
-    basis = convertConfigToMatrix4([-18, 1.8, 0], [-90, 0, 0], 1.8);
+    basis = convertConfigToMatrix4([-18, 2.8, 0], [-90, 0, 0], 1.8);
     trees[3] = [
-        convertConfigToMatrix4([15, 0, -20], [0, 0, 0], 1),
+        // convertConfigToMatrix4([15, 0, -20], [0, 0, 0], 1),
         // etc (add more)
     ].map((x) => x.multiply(basis));
 
@@ -91,30 +70,46 @@ export const houses = function() {
     let basis;
 
     // Snowy Houses.glb
-    basis = convertConfigToMatrix4([-10, 2.2, -2.5], [0, 92, 0], 8);
+    // Left Corner
+    basis = convertConfigToMatrix4([-10, 2.8, -2.5], [0, 92, 0], 8);
     houses[0] = [
-        convertConfigToMatrix4([15, 0, 20], [0, 0, 0], 1),
+        convertConfigToMatrix4([24.5, 0, 3], [0, 0, 0], 1),
+        convertConfigToMatrix4([11, 0, 4], [0, 60, 0], 1),
+        convertConfigToMatrix4([6, 0, 10], [0, 45, 0], 1),
+        convertConfigToMatrix4([3, 0, 24.5], [0, 90, 0], 1),
         // etc (add more)
     ].map((x) => x.multiply(basis));
     
-    basis.setPosition(-3.5, 2.2, -2.5);
+    // Right Top corner
+    basis.setPosition(-3.5, 2.8, -2.5);
     houses[1] = [
-        convertConfigToMatrix4([5, 0, 20], [0, 0, 0], 1),
+        convertConfigToMatrix4([-24.5, 0, 3], [0, 0, 0], 1),
+        convertConfigToMatrix4([-11, 0, 4], [0, -60, 0], 1),
+        convertConfigToMatrix4([-6, 0, 10], [0, -45, 0], 1),
+        convertConfigToMatrix4([-3, 0, 24.5], [0, -90, 0], 1),
         // etc (add more)
     ].map((x) => x.multiply(basis));
     
-    basis.setPosition(3.1, 2.2, -2.5);
+    // Right Bottom Corner
+    basis.setPosition(3.1, 2.8, -2.5);
     houses[2] = [
-        convertConfigToMatrix4([-5, 0, 20], [0, 0, 0], 1),
+        convertConfigToMatrix4([-24.5, 0, -3], [0, 180, 0], 1),
+        convertConfigToMatrix4([-11, 0, -4], [0, 240, 0], 1),
+        convertConfigToMatrix4([-6, 0, -10], [0, 225, 0], 1),
+        convertConfigToMatrix4([-3, 0, -24.5], [0, 270, 0], 1),
         // etc (add more)
     ].map((x) => x.multiply(basis));
     
-    basis.setPosition(9.6, 2.32, -2.6)
+    // Right Bottom Corener
+    basis.setPosition(9.6, 2.8, -2.6)
     houses[3] = [
-        convertConfigToMatrix4([-15, 0, 20], [0, 0, 0], 1),
+        convertConfigToMatrix4([24.5, 0, -3], [0, -180, 0], 1),
+        convertConfigToMatrix4([11, 0, -4], [0, -240, 0], 1),
+        convertConfigToMatrix4([6, 0, -10], [0, -225, 0], 1),
+        convertConfigToMatrix4([3, 0, -24.5], [0, -270, 0], 1),
         // etc (add more)
     ].map((x) => x.multiply(basis));
-
+    
     return houses;
 }();
 

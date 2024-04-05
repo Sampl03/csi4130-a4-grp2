@@ -22,18 +22,18 @@ export function fetchRoadsMeshes(callback) {
         const curve1xRoadMesh = gltf.scene.children[0].children[0].children[0].children[6];
         const curve2xRoadMesh = gltf.scene.children[0].children[0].children[0].children[7];
         const curve3xRoadMesh = gltf.scene.children[0].children[0].children[0].children[8];
-        let roads = []
+        let roads  = []
         console.log(dumpObject(gltf.scene).join('\n'));
         for (let mesh of straight2xRoadMesh.getObjectsByProperty("type", "Mesh")) {
             roads.push(convertMeshToInstancedMesh(mesh, INSTANCEPOS.roads[0]));
         };
 
-        for (let mesh of intersection3xRoadMesh.getObjectsByProperty("type", "Mesh")) {
-            roads.push(convertMeshToInstancedMesh(mesh, INSTANCEPOS.roads[1]));
-        };
+        // for (let mesh of intersection3xRoadMesh.getObjectsByProperty("type", "Mesh")) {
+        //     roads.push(convertMeshToInstancedMesh(mesh, INSTANCEPOS.roads[1]));
+        // };
 
-        for (let mesh of curve2xRoadMesh.getObjectsByProperty("type", "Mesh")) {
-            roads.push(convertMeshToInstancedMesh(mesh, INSTANCEPOS.roads[2]));
+        for (let mesh of curve1xRoadMesh.getObjectsByProperty("type", "Mesh")) {
+            roads.push(convertMeshToInstancedMesh(mesh, INSTANCEPOS.roads[1]));
         };
         callback(roads);
     });
