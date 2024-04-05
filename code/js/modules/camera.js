@@ -119,6 +119,7 @@ export function bindControlsToCamera(camera, eventDOMElement, speed, rotPixels) 
         
         camera.quaternion.multiply((new THREE.Quaternion()).setFromAxisAngle(pitchAxis, anglePitch));
         camera.quaternion.premultiply((new THREE.Quaternion()).setFromAxisAngle(yawAxis, angleYaw));
+        
 
         // Calculate the position offset
         const movement = new THREE.Vector3(
@@ -151,6 +152,10 @@ function handleKeyboard(kev, keydown, keyState) {
         case 'd': keyState.right = keydown; break;
         case 'q': keyState.down = keydown; break;
         case 'e': keyState.up = keydown; break;
+        case 'arrowleft': keyState.rotateLeft = keydown; break;
+        case 'arrowright': keyState.rotateRight = keydown; break;
+        case 'arrowup': keyState.rotateUp = keydown; break;
+        case 'arrowdown': keyState.rotateDown = keydown; break;
         case 'shift': keyState.shift = keydown; break;
         default: return;
     }
