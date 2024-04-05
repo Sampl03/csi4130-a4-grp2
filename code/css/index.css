@@ -9,3 +9,11 @@ body {
     width: 100vw;
     height: 100vh;
 }
+
+code {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    color: white;
+    text-align: left;
+}
