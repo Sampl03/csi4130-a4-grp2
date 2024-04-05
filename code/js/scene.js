@@ -5,14 +5,14 @@ import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js"
 export function populateScene(scene, updatables) {
     scene.renderer.setClearColor(ASSETS.SkyColors.day);
     
-    scene.camera.position.set(0, 40, -80);
+    scene.camera.position.set(0, 30, -50);
     scene.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
     const axes = new THREE.AxesHelper(5);
     scene.add(axes);
 
-    let light = new THREE.DirectionalLight(0xffffff, 5);
-    light.position.set(-10, 10, -10);
+    let light = new THREE.DirectionalLight(0xffffff, 3);
+    light.position.set(0, 50, -20);
     scene.add(light);
 
     // TODO: Add lighting
@@ -31,7 +31,7 @@ export function populateScene(scene, updatables) {
     scene.background = cubeMapTexture
 
     // TODO: Add terrain
-    const terrainGeometry = new THREE.PlaneGeometry(80, 80, 60, 60); // Width, height, width segments, height segments
+    const terrainGeometry = new THREE.PlaneGeometry(60, 60, 60, 60); // Width, height, width segments, height segments
     const positions = terrainGeometry.getAttribute('position')
     for (let i = 0; i < positions.count; i++) {
         const z = positions.getZ(i);
