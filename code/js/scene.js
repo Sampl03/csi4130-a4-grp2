@@ -18,6 +18,17 @@ export function populateScene(scene, updatables) {
     // TODO: Add lighting
 
     // TODO: Use a cubemap for the skybox
+    const cubeTextureLoader = new THREE.CubeTextureLoader();
+    const cubeMapTexture = cubeTextureLoader.load([
+        'code/assets/skybox_cubemap/skybox_px.jpg', // right
+        'code/assets/skybox_cubemap/skybox_nx.jpg', // left
+        'code/assets/skybox_cubemap/skybox_py.jpg', // top
+        'code/assets/skybox_cubemap/skybox_ny.jpg', // bottom
+        'code/assets/skybox_cubemap/skybox_pz.jpg', // front
+        'code/assets/skybox_cubemap/skybox_nz.jpg', // back
+    ])
+
+    scene.background = cubeMapTexture
 
     // TODO: Add terrain
     const terrainGeometry = new THREE.PlaneGeometry(80, 80, 60, 60); // Width, height, width segments, height segments
