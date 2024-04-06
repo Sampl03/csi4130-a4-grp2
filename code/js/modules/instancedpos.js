@@ -48,7 +48,7 @@ export const trees = function() {
     ].map((x) => x.multiply(basis));
 
     // lowpoly_forest.glb - snowy pine
-    basis = convertConfigToMatrix4([0, 1.2, 0], [-90, 0, 0], 0.8);
+    basis = convertConfigToMatrix4([0, 1, 0], [-90, 0, 0], 0.8);
     trees[2] = [
         convertConfigToMatrix4([0, 0, 0], [0, 0, 0], 2),
         // etc (add more)
@@ -111,6 +111,31 @@ export const houses = function() {
     ].map((x) => x.multiply(basis));
     
     return houses;
+}();
+
+/* Tracks Positions */
+export const tracks = function() {
+    let tracks = [];
+    let basis;
+    console.log(tracks[0])
+
+    // Straight tracks.glb
+    basis = convertConfigToMatrix4([0, 0, 0], [0, 0, 0], 1);
+    tracks[0] = [
+        // convertConfigToMatrix4([0.1, 1, 1], [90, 0, 0], 0.5),
+        convertConfigToMatrix4([19, 1, -16], [0, 0, 0], 1),
+        convertConfigToMatrix4([19, 1, -12], [0, 0, 0], 1),
+        convertConfigToMatrix4([-19, 1, -16], [0, 0, 0], 1),
+        convertConfigToMatrix4([-19, 1, -12], [0, 0, 0], 1),
+        convertConfigToMatrix4([19, 1, -12], [0, 0, 0], 1),
+        convertConfigToMatrix4([15, 1, -18], [0, -90, 0], 1),
+        convertConfigToMatrix4([13, 1, -18], [0, -90, 0], 1),
+        convertConfigToMatrix4([15, 1, 18], [0, -90, 0], 1),
+        convertConfigToMatrix4([13, 1, 18], [0, -90, 0], 1),
+        // etc (add more)
+    ].map((x) => x.multiply(basis));
+
+    return tracks;
 }();
 
 /* Utility */
