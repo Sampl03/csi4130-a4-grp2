@@ -86,6 +86,19 @@ export function fetchHouseMeshes(callback) {
     });
 }
 
+/* Train */
+export function fetchTrainObject(callback) {
+    // Load the train
+    gltfLoader.load('/code/assets/steam_train_valley_railroad_97.glb', (gltf) => {
+        const rail = gltf.scene.getObjectByName("Rail");
+        rail.parent.remove(rail);
+        gltf.scene.rotateY(Math.PI);
+        gltf.scene.scale.multiplyScalar(0.5)
+        gltf.scene.position.setY(0.6);
+        callback(gltf.scene);
+    })
+}
+
 /* Utility */
 function convertMeshToInstancedMesh(mesh, matrices) {
     let instancedMesh = new THREE.InstancedMesh(mesh.geometry, mesh.material, matrices.length);

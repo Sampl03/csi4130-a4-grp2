@@ -65,5 +65,8 @@ export function populateScene(scene, updatables) {
     ASSETS.fetchHouseMeshes((houses) => { for (let house of houses) houseGroup.add(house); });
     scene.add(houseGroup);
 
-    // TODO: Add train/mini-santa/else?
+    // Add train
+    let trainGroup = new THREE.Group();
+    ASSETS.fetchTrainObject((train) => { trainGroup.add(train); });
+    scene.add(trainGroup);
 }
