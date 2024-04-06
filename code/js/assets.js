@@ -23,7 +23,6 @@ export function fetchRoadsMeshes(callback) {
         const curve2xRoadMesh = gltf.scene.children[0].children[0].children[0].children[7];
         const curve3xRoadMesh = gltf.scene.children[0].children[0].children[0].children[8];
         let roads  = []
-        console.log(dumpObject(gltf.scene).join('\n'));
         for (let mesh of straight2xRoadMesh.getObjectsByProperty("type", "Mesh")) {
             roads.push(convertMeshToInstancedMesh(mesh, INSTANCEPOS.roads[0]));
         };
@@ -44,14 +43,12 @@ export function fetchTreeMeshes(callback) {
     // Load the first tree
     gltfLoader.load('/code/assets/low_poly_tree_with_snow_on_top.glb', (gltf) => {
         let mesh = gltf.scene.getObjectByName("Cube_Material_0");
-        console.log(gltf.scene)
         callback([convertMeshToInstancedMesh(mesh, INSTANCEPOS.trees[0])])
     });
 
     // Second tree
     gltfLoader.load('/code/assets/low-poly_snow_tree.glb', (gltf) => {
         let trees = [];
-        console.log(gltf.scene.getObjectsByProperty("type", "Mesh"))
         for (let mesh of gltf.scene.getObjectsByProperty("type", "Mesh")) {
             trees.push(convertMeshToInstancedMesh(mesh, INSTANCEPOS.trees[1]));
         };
@@ -81,7 +78,6 @@ export function fetchHouseMeshes(callback) {
     // Load the mini houses
     gltfLoader.load('/code/assets/Snowy Houses.glb', (gltf) => {
         const houseGroups = gltf.scene.children;
-        console.log(gltf.scene)
         let houses = []
         for (let i = 0; i < 4; i++) // Only render 4 houses instead of 8
             for (const mesh of houseGroups[i].children)
@@ -100,6 +96,7 @@ function convertMeshToInstancedMesh(mesh, matrices) {
     return instancedMesh;
 }
 
+// https://stackoverflow.com/a/58165372
 function dumpObject(obj, lines = [], isLast = true, prefix = '') {
     const localPrefix = isLast ? '└─' : '├─';
     lines.push(`${prefix}${prefix ? localPrefix : ''}${obj.name || '*no-name*'} [${obj.type}]`);
