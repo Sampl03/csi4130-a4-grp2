@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import * as ASSETS from "/code/js/assets.js"
+import { CurveFollower } from "/code/js/modules/curvefollower.js"
 import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js"
 
 export function populateScene(scene, updatables) {
@@ -88,6 +89,45 @@ export function populateScene(scene, updatables) {
     ASSETS.fetchTracksMeshes((tracks) => { for (let track of tracks) trackGroups.add(track); });
     scene.add(trackGroups);
 
+    // Add train
+    let trainGroup = new THREE.Group();
+    ASSETS.fetchTrainObject((train) => { trainGroup.add(train); });
+    scene.add(trainGroup);
 
-    // TODO: Add train/mini-santa/else?
+    // Create train path
+    trainGroup.path = new THREE.CatmullRomCurve3(
+        [
+            new THREE.Vector3(19, 0, 0), // West
+            new THREE.Vector3(19, 0, -5),
+            new THREE.Vector3(19, 0, -14),
+            new THREE.Vector3(15, 0, -18),
+            new THREE.Vector3(5, 0, -18),
+            new THREE.Vector3(0, 0, -18), // South
+            new THREE.Vector3(-5, 0, -18),
+            new THREE.Vector3(-15, 0, -18),
+            new THREE.Vector3(-19, 0, -14),
+            new THREE.Vector3(-19, 0, -5),
+            new THREE.Vector3(-19, 0, 0), // East
+            new THREE.Vector3(-19, 0, 5),
+            new THREE.Vector3(-19, 0, 14),
+            new THREE.Vector3(-15, 0, 18),
+            new THREE.Vector3(-5, 0, 18),
+            new THREE.Vector3(0, 0, 18), // West
+            new THREE.Vector3(5, 0, 18),
+            new THREE.Vector3(15, 0, 18),
+            new THREE.Vector3(19, 0, 14),
+            new THREE.Vector3(19, 0, 5),
+        ],
+        true, "catmullrom", 0.5
+    );
+    trainGroup.path.arcLengthDivisions = 1000;
+    trainGroup.path.updateArcLengths();
+    trainGroup.pathFollower = new CurveFollower(trainGroup.path, trainGroup, 10);
+    trainGroup.pathFollower.enabled = true;
+    updatables.push({ tick: (_, dt) => { trainGroup.pathFollower.update(dt); } });
+
+    let tube = new THREE.TubeGeometry(trainGroup.path, 200, 0.1, 8, true);
+    let mesh = new THREE.Mesh(tube, new THREE.MeshBasicMaterial({color: 0xff0000}))
+    mesh.position.y += 0.9;
+    scene.add(mesh);
 }
