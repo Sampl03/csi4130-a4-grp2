@@ -5,7 +5,8 @@ import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js"
 export function populateScene(scene, updatables) {
     scene.renderer.setClearColor(ASSETS.SkyColors.day);
     
-    scene.camera.position.set(0, 30, -50);
+    scene.camera.position.set(0, 30, -70);
+    // scene.camera.position.set(0, 90, 0);
     scene.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
     const axes = new THREE.AxesHelper(5);
@@ -50,6 +51,23 @@ export function populateScene(scene, updatables) {
     terrain.rotation.x = -Math.PI / 2; // Rotate the plane to lay it flat
     scene.add(terrain);
 
+    // Cube geometry
+    const cubeGeometry = new THREE.BoxGeometry(60, 9, 60);
+
+    // Material using the cube map for reflection or as a skybox
+    const groundTextureLoader = new THREE.TextureLoader();
+    const cubeMaterial = new THREE.MeshBasicMaterial({
+        map: groundTextureLoader.load('code/assets/dylann-hendricks-zOsFL2AcG_k-unsplash.jpg'), // Set the environment map to the cube map we loaded
+        color: 0x593E1A,     // Set the color to white so that the cube map shows clearly
+        // side: THREE.BackSide // Important if it's a skybox, you want to render the inside
+    });
+
+    // Create the cube mesh
+    const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cube.position.set(0, -4.5, 0)
+    // Add the cube to the scene
+    scene.add(cube);
+
     // TODO: Add Roads
     let roadGroups = new THREE.Group();
     ASSETS.fetchRoadsMeshes((roads) => { for (let road of roads) roadGroups.add(road); });
@@ -64,6 +82,11 @@ export function populateScene(scene, updatables) {
     let houseGroup = new THREE.Group();
     ASSETS.fetchHouseMeshes((houses) => { for (let house of houses) houseGroup.add(house); });
     scene.add(houseGroup);
+
+    // TODO: Add Tracks
+    let trackGroups = new THREE.Group();
+    ASSETS.fetchTracksMeshes((tracks) => { for (let track of tracks) trackGroups.add(track); });
+    scene.add(trackGroups);
 
     // Add train
     let trainGroup = new THREE.Group();

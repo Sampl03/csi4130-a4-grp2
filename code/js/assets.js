@@ -73,6 +73,25 @@ export function fetchTreeMeshes(callback) {
     });
 }
 
+/* Tracks */
+export function fetchTracksMeshes(callback) {
+    // Load the mini houses
+    gltfLoader.load('code/assets/models/train_track/scene.gltf', (gltf) => {
+        
+        // const curveTrainMesh = gltf.scene.children[0].children[0].children[0].children[0]; 
+        // console.log(curveTrainMesh)
+        let meshes = gltf.scene.getObjectsByProperty("type", "Mesh");
+        // console.log(meshes)
+        let tracks  = []
+        console.log(dumpObject(gltf.scene).join('\n'));
+        for (let mesh of meshes) {
+            tracks.push(convertMeshToInstancedMesh(mesh, INSTANCEPOS.tracks[0]));
+        };
+        
+        callback(tracks);
+    });
+}
+
 /* Houses */
 export function fetchHouseMeshes(callback) {
     // Load the mini houses
