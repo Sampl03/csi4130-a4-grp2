@@ -111,9 +111,11 @@ export function fetchTrainObject(callback) {
     gltfLoader.load('/code/assets/steam_train_valley_railroad_97.glb', (gltf) => {
         const rail = gltf.scene.getObjectByName("Rail");
         rail.parent.remove(rail);
-        gltf.scene.rotateY(Math.PI);
-        gltf.scene.scale.multiplyScalar(0.5)
-        gltf.scene.position.setY(0.6);
+        const wagon = gltf.scene.getObjectByName("Wagon002");
+        wagon.parent.remove(wagon);
+        gltf.scene.scale.multiplyScalar(0.8)
+        gltf.scene.position.setY(0.88);
+        gltf.scene.position.z -= 3;
         callback(gltf.scene);
     })
 }
