@@ -33,20 +33,6 @@ export const trees = function() {
     let trees = [];
     let basis;
 
-    // low_poly_tree_with_snow_on_top.glb
-    basis = convertConfigToMatrix4([0, 1.2, 0], [-90, 0, 0], 0.7);
-    trees[0] = [
-        // convertConfigToMatrix4([-15, 0, -20], [0, 0, 0], 1),
-        // etc (add more)
-    ].map((x) => x.multiply(basis));
-
-    // low-poly_snow_tree.glb
-    basis = convertConfigToMatrix4([0, .5, 0], [-90, 0, 0], 5);
-    trees[1] = [
-        // convertConfigToMatrix4([-5, 0, -20], [0, 0, 0], 1),
-        // etc (add more)
-    ].map((x) => x.multiply(basis));
-
     // lowpoly_forest.glb - snowy pine
     basis = convertConfigToMatrix4([0, 1, 0], [-90, 0, 0], 0.8);
     trees[2] = [
@@ -54,12 +40,57 @@ export const trees = function() {
         // etc (add more)
     ].map((x) => x.multiply(basis));
 
-    // lowpoly_forest.glb - dead tree
-    basis = convertConfigToMatrix4([-18, 2.8, 0], [-90, 0, 0], 1.8);
-    trees[3] = [
-        // convertConfigToMatrix4([15, 0, -20], [0, 0, 0], 1),
-        // etc (add more)
-    ].map((x) => x.multiply(basis));
+    /* Randomized trees */
+    // low_poly_tree_with_snow_on_top.glb
+    basis = convertConfigToMatrix4([0, 1.2, 0], [-90, 0, 0], 0.7);
+    trees[0] = [] // Unused
+
+    // low-poly_snow_tree.glb
+    const basis1 = convertConfigToMatrix4([0, .5, 0], [-90, 0, 0], 5);
+    const basis3 = convertConfigToMatrix4([-18, 2.8, 0], [-90, 0, 0], 1.8);
+    trees[1] = [];
+    trees[3] = [];
+    const deadTreePercentage = 0.2
+    function randomTree() {
+        return Math.random() < deadTreePercentage ? 3 : 1
+    }
+    
+    for (let z = 10.5; z <= 28; z+=2.5) {
+        for (let x = 23; x <= 28; x+=2.5) {
+            trees[randomTree()].push(convertConfigToMatrix4(
+                [x + 2*(Math.random()-0.5), 0.6, -z + 2*(Math.random()-0.5)],
+                [0, 0, 0], 0.5));
+            trees[randomTree()].push(convertConfigToMatrix4(
+                [x + 2*(Math.random()-0.5), 0.6, z + 2*(Math.random()-0.5)],
+                [0, 0, 0], 0.5));
+            trees[randomTree()].push(convertConfigToMatrix4(
+                [-x + 2*(Math.random()-0.5), 0.6, -z + 2*(Math.random()-0.5)],
+                [0, 0, 0], 0.5));
+            trees[randomTree()].push(convertConfigToMatrix4(
+                [-x + 2*(Math.random()-0.5), 0.6, z + 2*(Math.random()-0.5)],
+                [0, 0, 0], 0.5));
+        }
+    }
+    
+    for (let x = 10.5; x <= 23; x+=2.5) {
+        for (let z = 23; z <= 28; z+=2.5) {
+            trees[randomTree()].push(convertConfigToMatrix4(
+                [x + 2*(Math.random()-0.5), 0.6, -z + 2*(Math.random()-0.5)],
+                [0, 0, 0], 0.5));
+            trees[randomTree()].push(convertConfigToMatrix4(
+                [x + 2*(Math.random()-0.5), 0.6, z + 2*(Math.random()-0.5)],
+                [0, 0, 0], 0.5));
+            trees[randomTree()].push(convertConfigToMatrix4(
+                [-x + 2*(Math.random()-0.5), 0.6, -z + 2*(Math.random()-0.5)],
+                [0, 0, 0], 0.5));
+            trees[randomTree()].push(convertConfigToMatrix4(
+                [-x + 2*(Math.random()-0.5), 0.6, z + 2*(Math.random()-0.5)],
+                [0, 0, 0], 0.5));
+        }
+    }
+    
+    trees[1].map((x) => x.multiply(basis1));
+    trees[3].map((x) => x.multiply(basis3));
 
     return trees;
 }();
