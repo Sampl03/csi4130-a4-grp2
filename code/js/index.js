@@ -85,7 +85,7 @@ function setCameraPath(camera) {
             new THREE.Vector3(2.5, 2.25, -9),
             new THREE.Vector3(4.6, 2.25, -8.1),
             new THREE.Vector3(6.8, 2.25, -6.5),
-            new THREE.Vector3(7.4, 2.25, -5.6),
+            new THREE.Vector3(8.15, 2.2, -4.7),
             new THREE.Vector3(9.18, 1.8, -1.5),
             new THREE.Vector3(9.2, 2, 1.4),
             new THREE.Vector3(8, 1.8, 4.6),
@@ -106,9 +106,7 @@ function setCameraPath(camera) {
             new THREE.Vector3(-20.6, 33, 28.4),
             new THREE.Vector3(-22.9, 28, 20.85),
             new THREE.Vector3(10, 18, -35),
-            new THREE.Vector3(4, 16, -50),
-            new THREE.Vector3(1, 15, -50),
-            new THREE.Vector3(0, 14, -42),
+            new THREE.Vector3(5, 16, -45),
         ],
         true
     );

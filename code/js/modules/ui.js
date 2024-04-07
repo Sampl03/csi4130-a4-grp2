@@ -64,7 +64,7 @@ export function createGUI(scene) {
     camFolder.add(camControls, "rotPixels", 100, 1e3).name("Rot. (px/180°)")
              .onChange((newSpeed) => { camera.cameraRotPixels = newSpeed; });
     camFolder.add(camControls, "fov", 30, 120).name("Field of View")
-             .onChange((newFOV) => { camera.fov = newFOV; });
+             .onChange((newFOV) => { camera.fov = newFOV; camera.updateProjectionMatrix(); });
     camFolder.add(camControls, "visualisePath").name("See path")
              .onChange((show) => { showPathHelper(scene, camera.path, show); });
     camFolder.add(camControls, "followPath").name("Toggle Camera Mode");
@@ -82,7 +82,8 @@ export function createGUI(scene) {
                .onChange((show) => {
                     showPathHelper(scene, train.path, show);
                     if (show)
-                        train.path.visualisation.position.y = 1;
+                        train.path.visTube.position.y = 1;
+                        train.path.visSpheres.position.y = 1;
                 });
 
     return gui;
@@ -101,15 +102,27 @@ function setLightPosition(light, azimuth, elevation, radius) {
 }
 
 const pathHelperMat = new THREE.MeshBasicMaterial({color: 0xff0000, opacity: 0.7, transparent: true});
+const pathHelperPointMat = new THREE.MeshBasicMaterial({color: 0x0000ff});
 function showPathHelper(scene, path, show) {
-    if (path.visualisation) {
-        path.visualisation.removeFromParent();
-        path.visualisation = null;
+    if (path.visTube || path.visSpheres) {
+        path.visTube?.removeFromParent();
+        path.visSpheres?.removeFromParent();
+        path.visTube = null;
+        path.visSpheres = null;
     }
 
     if (show) {
-        const tubeGeom = new THREE.TubeGeometry(path, 200, 0.1);
-        path.visualisation = new THREE.Mesh(tubeGeom, pathHelperMat);
-        scene.add(path.visualisation);
+        const tubeGeom = new THREE.TubeGeometry(path, 500, 0.1);
+        const sphereGeom = new THREE.SphereGeometry(0.15);
+        path.visTube = new THREE.Mesh(tubeGeom, pathHelperMat);
+        path.visSpheres = new THREE.InstancedMesh(sphereGeom, pathHelperPointMat, path.points.length);
+
+        for (let i = 0; i < path.points.length; i++) {
+            const point = path.points[i];
+            path.visSpheres.setMatrixAt(i, new THREE.Matrix4().makeTranslation(point));
+        }
+
+        scene.add(path.visTube);
+        scene.add(path.visSpheres);
     }
 }
