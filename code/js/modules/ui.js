@@ -82,7 +82,8 @@ export function createGUI(scene) {
                .onChange((show) => {
                     showPathHelper(scene, train.path, show);
                     if (show)
-                        train.path.visualisation.position.y = 1;
+                        train.path.visTube.position.y = 1;
+                        train.path.visSpheres.position.y = 1;
                 });
 
     return gui;
@@ -101,15 +102,27 @@ function setLightPosition(light, azimuth, elevation, radius) {
 }
 
 const pathHelperMat = new THREE.MeshBasicMaterial({color: 0xff0000, opacity: 0.7, transparent: true});
+const pathHelperPointMat = new THREE.MeshBasicMaterial({color: 0x0000ff});
 function showPathHelper(scene, path, show) {
-    if (path.visualisation) {
-        path.visualisation.removeFromParent();
-        path.visualisation = null;
+    if (path.visTube || path.visSpheres) {
+        path.visTube?.removeFromParent();
+        path.visSpheres?.removeFromParent();
+        path.visTube = null;
+        path.visSpheres = null;
     }
 
     if (show) {
-        const tubeGeom = new THREE.TubeGeometry(path, 200, 0.1);
-        path.visualisation = new THREE.Mesh(tubeGeom, pathHelperMat);
-        scene.add(path.visualisation);
+        const tubeGeom = new THREE.TubeGeometry(path, 500, 0.1);
+        const sphereGeom = new THREE.SphereGeometry(0.15);
+        path.visTube = new THREE.Mesh(tubeGeom, pathHelperMat);
+        path.visSpheres = new THREE.InstancedMesh(sphereGeom, pathHelperPointMat, path.points.length);
+
+        for (let i = 0; i < path.points.length; i++) {
+            const point = path.points[i];
+            path.visSpheres.setMatrixAt(i, new THREE.Matrix4().makeTranslation(point));
+        }
+
+        scene.add(path.visTube);
+        scene.add(path.visSpheres);
     }
 }
