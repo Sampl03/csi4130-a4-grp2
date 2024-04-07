@@ -3,14 +3,14 @@
 This is the GitHub repository for the final assignment of CSI 4130 for the winter of 2024.
 
 We are group 2 with the following students:
-- Dylan Toh (? - [dtoh062@uottawa.ca](mailto://dtoh062@uottawa.ca))
+- Dylan Toh (300411757 - [dtoh062@uottawa.ca](mailto://dtoh062@uottawa.ca))
 - Samuel Pierre-Louis (300211427 - [spier033@uottawa.ca](mailto://spier033@uottawa.ca))
 
 ## Project
 
 The theme of this assignment is "Winter Wonderland".
 
-We've decided to make a Christmas/Winter theme town. For more details, check [Design](/design/)
+We've decided to make a Christmas/Winter theme town. For more details, check [Description](/description.docx)
 
 ## Setup
 
