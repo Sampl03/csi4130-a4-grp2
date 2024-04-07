@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { populateScene } from "/code/js/scene.js";
 import { bindControlsToCamera } from "/code/js/modules/camera.js";
 import { CurveFollower } from "/code/js/modules/curvefollower.js";
+import * as UI from "/code/js/modules/ui.js"
 
 const cameraPosInfo = document.getElementById("camera-position");
 
@@ -38,6 +39,9 @@ function init() {
 
     /* Resize the renderer and camera to fit the viewport */
     resizeRender();
+
+    /* Create the GUI */
+    let gui = UI.createGUI(scene);
 
     /* Rendering loop */
     let lastFrame = window.performance.now();
