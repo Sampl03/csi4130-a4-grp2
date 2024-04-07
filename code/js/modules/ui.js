@@ -64,7 +64,7 @@ export function createGUI(scene) {
     camFolder.add(camControls, "rotPixels", 100, 1e3).name("Rot. (px/180°)")
              .onChange((newSpeed) => { camera.cameraRotPixels = newSpeed; });
     camFolder.add(camControls, "fov", 30, 120).name("Field of View")
-             .onChange((newFOV) => { camera.fov = newFOV; });
+             .onChange((newFOV) => { camera.fov = newFOV; camera.updateProjectionMatrix(); });
     camFolder.add(camControls, "visualisePath").name("See path")
              .onChange((show) => { showPathHelper(scene, camera.path, show); });
     camFolder.add(camControls, "followPath").name("Toggle Camera Mode");
