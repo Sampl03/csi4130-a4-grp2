@@ -13,9 +13,16 @@ export function populateScene(scene, updatables) {
     const axes = new THREE.AxesHelper(5);
     scene.add(axes);
 
-    let light = new THREE.DirectionalLight(0xffffff, 3);
-    light.position.set(0, 50, -20);
+    let light = new THREE.DirectionalLight(0xb7a2ff, 3);
+    light.color.convertLinearToSRGB();
+    light.position.set(0, 40, -30);
     scene.add(light);
+    scene.dirLight = light;
+
+    let ambientLight = new THREE.AmbientLight(0xb7c2ff, 0.15);
+    ambientLight.color.convertLinearToSRGB();
+    scene.add(ambientLight);
+    scene.ambientLight = ambientLight;
 
     // TODO: Add lighting
 
@@ -57,7 +64,7 @@ export function populateScene(scene, updatables) {
 
     // Material using the cube map for reflection or as a skybox
     const groundTextureLoader = new THREE.TextureLoader();
-    const cubeMaterial = new THREE.MeshBasicMaterial({
+    const cubeMaterial = new THREE.MeshStandardMaterial({
         map: groundTextureLoader.load('code/assets/dylann-hendricks-zOsFL2AcG_k-unsplash.jpg'), // Set the environment map to the cube map we loaded
         color: 0x593E1A,     // Set the color to white so that the cube map shows clearly
         // side: THREE.BackSide // Important if it's a skybox, you want to render the inside
@@ -92,6 +99,7 @@ export function populateScene(scene, updatables) {
     // Add train
     let trainGroup = new THREE.Group();
     ASSETS.fetchTrainObject((train) => { trainGroup.add(train); });
+    scene.train = trainGroup;   
     scene.add(trainGroup);
 
     // Create train path
@@ -125,9 +133,4 @@ export function populateScene(scene, updatables) {
     trainGroup.pathFollower = new CurveFollower(trainGroup.path, trainGroup, 10);
     trainGroup.pathFollower.enabled = true;
     updatables.push({ tick: (_, dt) => { trainGroup.pathFollower.update(dt); } });
-
-    let tube = new THREE.TubeGeometry(trainGroup.path, 200, 0.1, 8, true);
-    let mesh = new THREE.Mesh(tube, new THREE.MeshBasicMaterial({color: 0xff0000}))
-    mesh.position.y += 0.9;
-    scene.add(mesh);
 }
