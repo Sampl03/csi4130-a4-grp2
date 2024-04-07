@@ -117,7 +117,6 @@ export const houses = function() {
 export const tracks = function() {
     let tracks = [];
     let basis;
-    console.log(tracks[0])
 
     // Straight tracks.glb
     basis = convertConfigToMatrix4([0, 0, 0], [0, 0, 0], 1);

@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import * as ASSETS from "/code/js/assets.js"
 import { CurveFollower } from "/code/js/modules/curvefollower.js"
-import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js"
+import { SimplexNoise } from "three/examples/jsm/Addons.js";
 
 export function populateScene(scene, updatables) {
     scene.renderer.setClearColor(ASSETS.SkyColors.day);
@@ -23,8 +23,6 @@ export function populateScene(scene, updatables) {
     ambientLight.color.convertLinearToSRGB();
     scene.add(ambientLight);
     scene.ambientLight = ambientLight;
-
-    // TODO: Add lighting
 
     // TODO: Use a cubemap for the skybox
     const cubeTextureLoader = new THREE.CubeTextureLoader();
@@ -59,21 +57,16 @@ export function populateScene(scene, updatables) {
     terrain.rotation.x = -Math.PI / 2; // Rotate the plane to lay it flat
     scene.add(terrain);
 
-    // Cube geometry
+    // Add Ground Height
     const cubeGeometry = new THREE.BoxGeometry(60, 9, 60);
-
-    // Material using the cube map for reflection or as a skybox
     const groundTextureLoader = new THREE.TextureLoader();
     const cubeMaterial = new THREE.MeshStandardMaterial({
         map: groundTextureLoader.load('code/assets/dylann-hendricks-zOsFL2AcG_k-unsplash.jpg'), // Set the environment map to the cube map we loaded
-        color: 0x593E1A,     // Set the color to white so that the cube map shows clearly
-        // side: THREE.BackSide // Important if it's a skybox, you want to render the inside
+        color: 0x593E1A, 
     });
 
-    // Create the cube mesh
     const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
     cube.position.set(0, -4.5, 0)
-    // Add the cube to the scene
     scene.add(cube);
 
     // TODO: Add Roads
@@ -133,4 +126,67 @@ export function populateScene(scene, updatables) {
     trainGroup.pathFollower = new CurveFollower(trainGroup.path, trainGroup, 10);
     trainGroup.pathFollower.enabled = true;
     updatables.push({ tick: (_, dt) => { trainGroup.pathFollower.update(dt); } });
+
+    // TODO: Add Snow Falling effect
+    let particles;
+    let snowPositions = []; 
+    let velocities = [];
+    const noise = new SimplexNoise();
+
+    const numSnowFlakes = 15000;
+
+    const maxRange = 500;
+    const minRange = maxRange/2;
+    const minHeight = 0;
+
+    const geometry = new THREE.BufferGeometry();
+
+    const snowTextureLoader = new THREE.TextureLoader();
+
+    for (let i=0; i < numSnowFlakes; i++) {
+        snowPositions.push(
+            Math.floor(Math.random() * maxRange - minRange), // x -500 to 500
+            Math.floor(Math.random() * minRange + minHeight), // y 250 to 750
+            Math.floor(Math.random() * maxRange - minRange) // z -500 to 500
+        )
+
+        velocities.push(
+            Math.floor(Math.random() * 6 - 3) * 0.1, // x -0.3 to 0.3
+            Math.floor(Math.random() * 5 + 0.12) * 0.18, // y 0.02 to 0.92
+            Math.floor(Math.random() * 6 - 3) * 0.1 // z -0.3 to 0.3
+        )
+    }
+
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(snowPositions, 3));
+    geometry.setAttribute('velocity', new THREE.Float32BufferAttribute(velocities, 3));
+
+    const flakeMaterial = new THREE.PointsMaterial({
+        size: 4,
+        map: snowTextureLoader.load('code/assets/snowflake.png'),
+        blending: THREE.AdditiveBlending,
+        depthTest: false,
+        transparent: true,
+        opacity: 1
+    });
+
+    particles = new THREE.Points(geometry, flakeMaterial)
+    scene.add(particles)
+    updatables.push({tick:(_, dt) => updateSnowParticles()})
+
+    function updateSnowParticles() {
+        for (let i = 0; i < numSnowFlakes * 3; i += 3) {
+            particles.geometry.attributes.position.array[i] -= particles.geometry.attributes.velocity.array[i]
+            particles.geometry.attributes.position.array[i+1] -= particles.geometry.attributes.velocity.array[i+1]
+            particles.geometry.attributes.position.array[i+2] -= particles.geometry.attributes.velocity.array[i+2] 
+
+            if (particles.geometry.attributes.position.array[i+1] < -10) {
+                particles.geometry.attributes.position.array[i] = Math.floor(Math.random()*maxRange - minRange);
+                particles.geometry.attributes.position.array[i+1] = Math.floor(Math.random() * maxRange + minHeight); 
+                particles.geometry.attributes.position.array[i+2] = Math.floor(Math.random() * maxRange - minRange);  
+            }
+        }
+    
+        particles.geometry.attributes.position.needsUpdate = true;
+
+    }
 }
