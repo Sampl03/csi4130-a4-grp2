@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import * as ASSETS from "/code/js/assets.js"
 import { CurveFollower } from "/code/js/modules/curvefollower.js"
-import { SimplexNoise } from "three/examples/jsm/Addons.js";
+import { SimplexNoise } from "three/addons/math/SimplexNoise.js";
 
 export function populateScene(scene, updatables) {
     scene.renderer.setClearColor(ASSETS.SkyColors.day);
