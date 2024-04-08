@@ -127,7 +127,7 @@ export function fetchHipHopAnimation(callback) {
 export function fetchTwistAnimation(callback) {
     fbxLoader.load('code/assets/Twist Dance.fbx', (fbx) => {
         console.log(fbx)
-        fbx.position.set(14, 0.6, -13)
+        fbx.position.set(14, 0.6, -12)
         fbx.rotation.set(0, 135, 0)
         fbx.scale.multiplyScalar(0.1)
         callback(fbx)
