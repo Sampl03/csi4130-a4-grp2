@@ -127,15 +127,68 @@ export function populateScene(scene, updatables) {
     trainGroup.pathFollower.enabled = true;
     updatables.push({ tick: (_, dt) => { trainGroup.pathFollower.update(dt); } });
 
+    // Add Skeletal Animation
+    ASSETS.fetchHipHopAnimation((people) => { 
+        let peopleGroup = people;
+        scene.add(peopleGroup);
+        
+        // Create an AnimationMixer for each skinned mesh
+        peopleGroup.children.forEach((person) => {
+            if (person.isMesh) {
+                const character = {
+                    mesh: person, 
+                    mixer: new THREE.AnimationMixer(person),
+                    speed: 5
+                };
+                
+                people.animations.forEach((clip) => {
+                    console.log(clip)
+                    const action = character.mixer.clipAction(clip);
+                    action.play();
+                });
+
+                updatables.push({ tick: (_,dt) => { 
+                    character.mixer.update(dt); // Update the animation mixer
+                }});
+            }
+        });
+    });
+
+    ASSETS.fetchTwistAnimation((people) => { 
+        let peopleGroup = people;
+        scene.add(peopleGroup);
+        
+        // Create an AnimationMixer for each skinned mesh
+        peopleGroup.children.forEach((person) => {
+            if (person.isMesh) {
+                const character = {
+                    mesh: person, 
+                    mixer: new THREE.AnimationMixer(person),
+                    speed: 5
+                };
+                
+                people.animations.forEach((clip) => {
+                    console.log(clip)
+                    const action = character.mixer.clipAction(clip);
+                    action.play();
+                });
+
+                updatables.push({ tick: (_,dt) => { 
+                    character.mixer.update(dt); // Update the animation mixer
+                }});
+            }
+        });
+    });
+
     // TODO: Add Snow Falling effect
     let particles;
     let snowPositions = []; 
     let velocities = [];
     const noise = new SimplexNoise();
 
-    const numSnowFlakes = 15000;
+    const numSnowFlakes = 20000;
 
-    const maxRange = 500;
+    const maxRange = 1000;
     const minRange = maxRange/2;
     const minHeight = 0;
 
@@ -143,7 +196,7 @@ export function populateScene(scene, updatables) {
 
     const snowTextureLoader = new THREE.TextureLoader();
 
-    for (let i=0; i < numSnowFlakes; i++) {
+    for (let i=0; i < numSnowFlakes * 3; i+=3) {
         snowPositions.push(
             Math.floor(Math.random() * maxRange - minRange), // x -500 to 500
             Math.floor(Math.random() * minRange + minHeight), // y 250 to 750
@@ -152,7 +205,7 @@ export function populateScene(scene, updatables) {
 
         velocities.push(
             Math.floor(Math.random() * 6 - 3) * 0.1, // x -0.3 to 0.3
-            Math.floor(Math.random() * 5 + 0.12) * 0.18, // y 0.02 to 0.92
+            Math.floor(Math.random() * 5 + 0.12) * 0.1, // y 0.02 to 0.92
             Math.floor(Math.random() * 6 - 3) * 0.1 // z -0.3 to 0.3
         )
     }
