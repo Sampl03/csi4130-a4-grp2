@@ -15,15 +15,8 @@ export const SkyColors = {
 export function fetchRoadsMeshes(callback) {
     // Load the mini houses
     gltfLoader.load('/code/assets/models/modular_roads_pack/scene.gltf', (gltf) => {
-        const straight1xRoadMesh = gltf.scene.children[0].children[0].children[0].children[0];
         const straight2xRoadMesh = gltf.scene.children[0].children[0].children[0].children[1];
-        const straight3xRoadMesh = gltf.scene.children[0].children[0].children[0].children[2];
-        const intersection1xRoadMesh = gltf.scene.children[0].children[0].children[0].children[3];
-        const intersection2xRoadMesh = gltf.scene.children[0].children[0].children[0].children[4];
-        const intersection3xRoadMesh = gltf.scene.children[0].children[0].children[0].children[5];
         const curve1xRoadMesh = gltf.scene.children[0].children[0].children[0].children[6];
-        const curve2xRoadMesh = gltf.scene.children[0].children[0].children[0].children[7];
-        const curve3xRoadMesh = gltf.scene.children[0].children[0].children[0].children[8];
         let roads  = []
         for (let mesh of straight2xRoadMesh.getObjectsByProperty("type", "Mesh")) {
             roads.push(convertMeshToInstancedMesh(mesh, INSTANCEPOS.roads[0]));
@@ -77,7 +70,6 @@ export function fetchTracksMeshes(callback) {
     gltfLoader.load('code/assets/models/train_track/scene.gltf', (gltf) => {
         let meshes = gltf.scene.getObjectsByProperty("type", "Mesh");
         let tracks  = []
-        console.log(dumpObject(gltf.scene).join('\n'));
         for (let mesh of meshes) {
             tracks.push(convertMeshToInstancedMesh(mesh, INSTANCEPOS.tracks[0]));
         };
@@ -116,7 +108,6 @@ export function fetchTrainObject(callback) {
 
 export function fetchHipHopAnimation(callback) {
     fbxLoader.load('code/assets/Hip Hop Dancing.fbx', (fbx) => {
-        console.log(fbx)
         fbx.position.set(-14, 0.6, -13)
         fbx.rotation.set(0, 135, 0)
         fbx.scale.multiplyScalar(0.1)
@@ -126,7 +117,6 @@ export function fetchHipHopAnimation(callback) {
 
 export function fetchTwistAnimation(callback) {
     fbxLoader.load('code/assets/Twist Dance.fbx', (fbx) => {
-        console.log(fbx)
         fbx.position.set(14, 0.6, -12)
         fbx.rotation.set(0, 135, 0)
         fbx.scale.multiplyScalar(0.1)

@@ -24,7 +24,7 @@ export function populateScene(scene, updatables) {
     scene.add(ambientLight);
     scene.ambientLight = ambientLight;
 
-    // TODO: Use a cubemap for the skybox
+    // Use a cubemap for the skybox
     const cubeTextureLoader = new THREE.CubeTextureLoader();
     const cubeMapTexture = cubeTextureLoader.load([
         'code/assets/skybox_cubemap/skybox_px.jpg', // right
@@ -37,7 +37,7 @@ export function populateScene(scene, updatables) {
 
     scene.background = cubeMapTexture
 
-    // TODO: Add terrain
+    // Add terrain
     const terrainGeometry = new THREE.PlaneGeometry(60, 60, 60, 60); // Width, height, width segments, height segments
     const positions = terrainGeometry.getAttribute('position')
     for (let i = 0; i < positions.count; i++) {
@@ -69,7 +69,7 @@ export function populateScene(scene, updatables) {
     cube.position.set(0, -4.5, 0)
     scene.add(cube);
 
-    // TODO: Add Roads
+    // Add Roads
     let roadGroups = new THREE.Group();
     ASSETS.fetchRoadsMeshes((roads) => { for (let road of roads) roadGroups.add(road); });
     scene.add(roadGroups);
@@ -84,7 +84,7 @@ export function populateScene(scene, updatables) {
     ASSETS.fetchHouseMeshes((houses) => { for (let house of houses) houseGroup.add(house); });
     scene.add(houseGroup);
 
-    // TODO: Add Tracks
+    // Add Tracks
     let trackGroups = new THREE.Group();
     ASSETS.fetchTracksMeshes((tracks) => { for (let track of tracks) trackGroups.add(track); });
     scene.add(trackGroups);
@@ -142,7 +142,6 @@ export function populateScene(scene, updatables) {
                 };
                 
                 people.animations.forEach((clip) => {
-                    console.log(clip)
                     const action = character.mixer.clipAction(clip);
                     action.play();
                 });
@@ -168,7 +167,6 @@ export function populateScene(scene, updatables) {
                 };
                 
                 people.animations.forEach((clip) => {
-                    console.log(clip)
                     const action = character.mixer.clipAction(clip);
                     action.play();
                 });
@@ -180,7 +178,7 @@ export function populateScene(scene, updatables) {
         });
     });
 
-    // TODO: Add Snow Falling effect
+    // Add Snow Falling effect
     let particles;
     let snowPositions = []; 
     let velocities = [];
