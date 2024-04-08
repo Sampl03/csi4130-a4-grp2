@@ -108,7 +108,7 @@ export function fetchTrainObject(callback) {
 
 export function fetchHipHopAnimation(callback) {
     fbxLoader.load('code/assets/Hip Hop Dancing.fbx', (fbx) => {
-        fbx.position.set(-14, 0.6, -13)
+        fbx.position.set(-14, 0.6, 13)
         fbx.rotation.set(0, 135, 0)
         fbx.scale.multiplyScalar(0.1)
         callback(fbx)
@@ -117,7 +117,7 @@ export function fetchHipHopAnimation(callback) {
 
 export function fetchTwistAnimation(callback) {
     fbxLoader.load('code/assets/Twist Dance.fbx', (fbx) => {
-        fbx.position.set(14, 0.6, -12)
+        fbx.position.set(14, 0.6, 12)
         fbx.rotation.set(0, 135, 0)
         fbx.scale.multiplyScalar(0.1)
         callback(fbx)

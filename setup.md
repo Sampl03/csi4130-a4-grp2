@@ -67,4 +67,4 @@ They come preinstalled in this repository, but their repositories can be found o
 ## Page Access
 For ease of use and of testing, the "web server" is expected to run in the root folder.
 
-Therefore, the link to the assignment page should be something like `http://localhost:4000/code/index.html`
+Therefore, the link to the assignment page should be something like `http://localhost:4000/index.html`
