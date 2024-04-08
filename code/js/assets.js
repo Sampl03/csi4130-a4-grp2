@@ -1,9 +1,11 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { FBXLoader } from "three/addons/loaders/FBXLoader.js";
 
 import * as INSTANCEPOS from "/code/js/modules/instancedpos.js";
 
 const gltfLoader = new GLTFLoader();
+const fbxLoader = new FBXLoader();
 
 export const SkyColors = {
     day: new THREE.Color(new THREE.Color(0x3299CC))
@@ -110,6 +112,26 @@ export function fetchTrainObject(callback) {
         gltf.scene.position.z -= 3;
         callback(gltf.scene);
     })
+}
+
+export function fetchHipHopAnimation(callback) {
+    fbxLoader.load('code/assets/Hip Hop Dancing.fbx', (fbx) => {
+        console.log(fbx)
+        fbx.position.set(-14, 0.6, -13)
+        fbx.rotation.set(0, 135, 0)
+        fbx.scale.multiplyScalar(0.1)
+        callback(fbx)
+    });
+}
+
+export function fetchTwistAnimation(callback) {
+    fbxLoader.load('code/assets/Twist Dance.fbx', (fbx) => {
+        console.log(fbx)
+        fbx.position.set(14, 0.6, -13)
+        fbx.rotation.set(0, 135, 0)
+        fbx.scale.multiplyScalar(0.1)
+        callback(fbx)
+    });
 }
 
 /* Utility */
